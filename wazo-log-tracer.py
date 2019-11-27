@@ -2,6 +2,7 @@
 
 import argparse
 import csv
+import json
 import sys
 import re
 
@@ -163,6 +164,28 @@ def output_csv(records, output):
             )
 
 
+def output_stats(records):
+    records.sort(key=lambda r: r.record_time)
+
+    status, calls, times = dict(), dict(), dict()
+
+    for record in records:
+        status[record.status] = status.get(record.status, 0) + 1
+
+        key = "%s %s" % (record.method, record.service)
+        calls[key] = calls.get(key, 0) + 1
+        times[key] = times.get(key, 0) + record.request_duration
+
+    stats = {
+        "status": status,
+        "calls": calls,
+        "times": times,
+        "duration": records[-1].record_time - records[0].record_time,
+    }
+
+    print(json.dumps(stats, indent=4, sort_keys=True))
+
+
 def main(input, output, format):
     records = parse_logs(input)
 
@@ -170,12 +193,14 @@ def main(input, output, format):
         output_uml(records, output)
     elif format == "csv":
         output_csv(records, output)
+    elif format == "stats":
+        output_stats(records)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--format", default="uml",
-                        help="output format (csv or uml)")
+                        help="output format (csv, uml, stats)")
     parser.add_argument("--output", default="-",
                         help="output file (defaults to standard output)")
     parser.add_argument("--input", default="-",
