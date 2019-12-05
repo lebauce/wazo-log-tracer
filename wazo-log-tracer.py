@@ -3,8 +3,9 @@
 import argparse
 import csv
 import json
-import sys
 import re
+import sys
+import urllib.parse
 
 MAGIC_REGEX = (
     ".*?(GET|HEAD|POST|PUT|OPTIONS|DELETE|PATCH) (\S+) "
@@ -140,7 +141,8 @@ def output_csv(records, output):
         [
             "ID",
             "Method",
-            "URL",
+            "Path",
+            "Query",
             "Status",
             "User Agent",
             "Service",
@@ -150,11 +152,13 @@ def output_csv(records, output):
     )
     for record in records:
         if record.type == "request":
+            result = urllib.parse.urlparse(record.uri)
             csv_writer.writerow(
                 [
                     record.id,
                     record.method,
-                    record.uri,
+                    result.path,
+                    result.query,
                     record.status,
                     record.user_agent,
                     record.service,
