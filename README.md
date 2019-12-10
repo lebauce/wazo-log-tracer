@@ -83,7 +83,7 @@ Example:
 
 * Capture nginx logs in `/var/log/nginx/wazo.access.log`
 * You can use `logrotate -f /etc/logrotate.d/nginx` to purge the log file
-* Use it: `wazo-log-tracer wazo.access.log wazo.puml`
+* Use it: `./wazo-log-tracer.py wazo.access.log wazo.puml`
 * Generate PNG file `wazo.png`: `plantuml wazo.puml`
 
 ### Advanced usage
@@ -92,14 +92,14 @@ Example:
 
 * Use a spreadsheet to analyse which requests are the more costly: the ones initiated from the browser which are the longest. Then analyse them in the call graph.
 
-## extractor.py
+## flask.py
 
-This tool re arrage Wazo service logs in order to extract
+This tool re arrange Wazo service flask logs in order to extract
 backtraces and provide a single file for request/response that
 can be analyze with goaccess.
 
 ```
-python extractor.py wazo-auth.log*
+python flask.py wazo-auth.log*
 ```
 
 This command generated 3 files:

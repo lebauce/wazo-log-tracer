@@ -7,9 +7,7 @@ from os.path import isfile, join
 import sys
 
 
-def main():
-    filenames = sys.argv[1:]
-
+def normalize_flask_logs(filenames):
     time_fmt = '%Y-%m-%d %H:%M:%S,%f'
 
     flask_re = re.compile(
@@ -62,6 +60,15 @@ def main():
                     e.write(l)
             else:
                 e.write(l)
+
+
+def parse_flask_logs(filename):
+    pass
+
+
+def main():
+    normalize_flask_logs(sys.argv[1:])
+
 
 if __name__ == "__main__":
     main()
