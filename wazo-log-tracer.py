@@ -7,95 +7,13 @@ import re
 import sys
 import urllib.parse
 
-MAGIC_REGEX = (
-    ".*?(GET|HEAD|POST|PUT|OPTIONS|DELETE|PATCH) (\S+) "
-    'HTTP/\d+\.\d+" (\d+) \d+ ".*?" "(.*?)" "(.*?)" \d+ '
-    "(\d+\.\d+) (\d+\.\d+) .*"
-)
-
-
-class Record:
-    def __init__(
-        self,
-        id,
-        method,
-        uri,
-        status,
-        user_agent,
-        service,
-        record_time,
-        request_start,
-        request_duration,
-        record_type,
-    ):
-        self.id = id
-        self.method = method
-        self.uri = uri
-        self.status = status
-        self.user_agent = user_agent
-        self.service = service
-        self.record_time = record_time
-        self.request_start = request_start
-        self.request_duration = request_duration
-        self.type = record_type
-
-
-def format_uri(url):
-    return re.sub(r"(\w+)-\w+-\w+-\w+-\w+", r"\1", url)
+from flask import *
+from nginx import *
+from postgresql import *
 
 
 def format_user_agent(user_agent):
     return user_agent.split()[0]
-
-
-def parse_logs(input):
-    records = []
-
-    id = 1
-    for log in input.readlines():
-        m = re.search(MAGIC_REGEX, log)
-        (
-            method,
-            uri,
-            status,
-            user_agent,
-            service,
-            log_time,
-            request_duration,
-        ) = m.groups()
-        request_duration = float(request_duration)
-        log_time = float(log_time)
-        status = int(status)
-        request_start = log_time - request_duration
-        record = Record(
-            id,
-            method,
-            uri,
-            status,
-            user_agent,
-            service,
-            request_start,
-            request_start,
-            request_duration,
-            "request",
-        )
-        records.append(record)
-        record = Record(
-            id,
-            method,
-            uri,
-            status,
-            user_agent,
-            service,
-            log_time,
-            request_start,
-            request_duration,
-            "response",
-        )
-        records.append(record)
-        id = id + 1
-
-    return records
 
 
 def output_uml(records, output):
@@ -106,28 +24,28 @@ def output_uml(records, output):
     for record in records:
         if record.type == "request":
             output.write(
-                '"%s" -[#red]> "%s": %s %d %s ( <b>%d</b> Start: %d ms)\n'
+                '"%s" -[#red]> "%s": %s %d %s ( <b>%d</b> Start: %f ms)\n'
                 % (
                     format_user_agent(record.user_agent),
                     record.service,
                     record.method,
                     record.status,
-                    format_uri(record.uri),
+                    record.uri,
                     len(records) / 2 - record.id + 1,
-                    (record.request_start - records[0].request_start) * 1000,
+                    (record.request_start - records[0].request_start).total_seconds() * 1000.,
                 )
             )
         else:
             output.write(
-                '"%s" <-[#blue]- "%s": %s %d %s ( <b>%d</b> Duration: %d ms)\n'
+                '"%s" <-[#blue]- "%s": %s %d %s ( <b>%d</b> Duration: %f ms)\n'
                 % (
                     format_user_agent(record.user_agent),
                     record.service,
                     record.method,
                     record.status,
-                    format_uri(record.uri),
+                    record.uri,
                     len(records) / 2 - record.id + 1,
-                    record.request_duration * 1000,
+                    record.request_duration.total_seconds() * 1000,
                 )
             )
 
@@ -163,7 +81,7 @@ def output_csv(records, output):
                     record.user_agent,
                     record.service,
                     record.request_start,
-                    record.request_duration,
+                    record.request_duration.total_seconds() * 1000,
                 ]
             )
 
@@ -190,8 +108,27 @@ def output_stats(records):
     print(json.dumps(stats, indent=4, sort_keys=True))
 
 
-def main(input, output, format):
-    records = parse_logs(input)
+def main(inputs, output, format):
+    records = []
+
+    for input in inputs:
+        if input == "-":
+            input_file = sys.stdin
+        else:
+            splitted = input.split(':', 1)
+            if len(splitted) > 1:
+                input_format, filename = splitted
+            else:
+                input_format = "nginx"
+                filename = splitted[0]
+            input_file = open(filename)
+
+        if input_format == "nginx":
+            records += parse_nginx_logs(input_file)
+        elif input_format == "postgresql":
+            records += parse_postgresql_logs(input_file)
+        elif input_format == "flask":
+            records += parse_flask_logs(input_file)
 
     if format == "uml":
         output_uml(records, output)
@@ -207,18 +144,13 @@ if __name__ == "__main__":
                         help="output format (csv, uml, stats)")
     parser.add_argument("--output", default="-",
                         help="output file (defaults to standard output)")
-    parser.add_argument("--input", default="-",
+    parser.add_argument("--input", default=[], action="append",
                         help="input file (defaults to standard input)")
     args = parser.parse_args()
-
-    if args.input == "-":
-        input_file = sys.stdin
-    else:
-        input_file = open(args.input)
 
     if args.output == "-":
         output_file = sys.stdout
     else:
         output_file = open(args.output, "w", newline="")
 
-    main(input_file, output_file, args.format)
+    main(args.input, output_file, args.format)
