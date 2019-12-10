@@ -130,3 +130,38 @@ or
 ```
 mkgoaccess detokenized.log
 ```
+
+## Benchmark
+
+### bench.sh
+
+This tool is used to run apache bench against an engine. While running the benchmark it collects metrics from the
+engine host. All the files are written in a folder and can be processed by the report.py tool which generates a single
+html report page.
+
+Examples:
+
+Token creation
+
+Data file:
+```
+cat new-token.json
+{"expiration": 3600}
+```
+
+Bench:
+```
+./bench.sh -d ./new-token.json -u 10 -n 50 -a root:pass -m POST -r https://192.168.1.201/api/auth/0.1/token -s wazo-auth -o run-1
+```
+
+### report.py
+
+This tool generates a report from files collected by bench.sh
+
+Examples:
+
+```
+report.py run-1
+``̀
+
+This generates a file named `report.html` within the bench folder.
