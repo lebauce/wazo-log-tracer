@@ -98,7 +98,7 @@ retrieve_logs() {
 
         # generate goaccess
         goaccess -o goaccess.html --date-format '%Y-%m-%d' \
-            --time-format '%H:%M:%S'  --log-format '%d %t,%^ %m %U %h %s %L' $arg-notok.log
+            --time-format '%H:%M:%S'  --log-format '%d %t,%^ %m %U %h %s %L' *-notok.log
     done
 
     ssh $host "sudo cat /var/log/postgresql/postgresql-*-main.log" > postgresql.log
