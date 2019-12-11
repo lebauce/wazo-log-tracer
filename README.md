@@ -102,7 +102,7 @@ can be analyze with goaccess.
 python flask.py wazo-auth.log*
 ```
 
-This command generated 3 files:
+This command generates 3 files:
 
 * wazo-auth-nobt.log: log file with all the backtraces removed
 * wazo-auth-bt.log: log file with only the backtraces
@@ -154,6 +154,14 @@ Bench:
 ./bench.sh -d ./new-token.json -u 10 -n 50 -a root:pass -m POST -r https://192.168.1.201/api/auth/0.1/token -s wazo-auth -o run-1
 ```
 
+### monitor.sh
+
+This tool collects the same metrics as the bench one except that it doesn't run any stress test.
+
+```
+./monitor.sh -d 30 -o run-2 -s wazo-auth
+```
+
 ### report.py
 
 This tool generates a report from files collected by bench.sh
@@ -165,3 +173,30 @@ report.py run-1
 ``̀
 
 This generates a file named `report.html` within the bench folder.
+
+### Scenario
+
+This is a way to create file that will be used to pre-configure a bench. These files
+have to be placed in the scenario folder. A scenario file is basically a shell file
+that fill variable that the bench will use.
+
+Example :
+
+`̀ `
+token=$( curl -s -k -X POST -u $auth -H 'Content-Type: application/json' -H 'Host: buster' \
+-d '{"expiration": 3600}' https://$host/api/auth/0.1/token | jq -r .data.token )
+
+request=https://$WAZO_HOST/api/confd/1.1/incalls
+method=GET
+services=( wazo-auth wazo-confd )
+headers=( "X-Auth-Token:$token" )
+```
+
+Here the variable that can be set
+
+* method: method of the HTTP request
+* data: data file path used for POST, PUT requests
+* auth: basic auth parameter, user:password
+* request: URL of the request
+* services: service to be monitored
+* headers: list of header that will be used for the request

@@ -40,10 +40,13 @@ def read_bench(folder, width):
     """
     tm = Template(tmpl)
 
-    with open("%s/bench.csv" % folder, mode='r') as f:
-        reader = csv.reader(f, delimiter=',')
-        for row in reader:
-            return tm.render(bench=row, width=width)
+    try:
+        with open("%s/bench.csv" % folder, mode='r') as f:
+            reader = csv.reader(f, delimiter=',')
+            for row in reader:
+                return tm.render(bench=row, width=width)
+    except:
+        pass
 
 
 def read_sys(folder, width, height):
@@ -173,15 +176,36 @@ def read_req(folder, width, height):
 
                 rows.append(a)
 
-            id = os.path.basename(file)
+            id = os.path.basename(file).replace("-notok.log", "")
             result.append(tm.render(id=id, rows=rows,
                                     width=width, height=height))
 
     return result
 
 
-def render(folder):
+def read_flame(folder, width):
+    tmpl = """
+    <div class="card" style="margin-top: 20px;">
+        <div class="card-header" style="width: {{ width }}px;">
+            {{ name }}
+        </div>
+        <object type="image/svg+xml" data="{{ file }}" align="left"></object>
+    </div>
+    """
+    tm = Template(tmpl)
 
+    files = glob.glob("%s/*-flame.svg" % folder)
+
+    result = []
+    for f in files:
+        file = os.path.basename(f)
+        name = file.replace("-flame.svg", "")
+        result.append(tm.render(file=file, name=name, width=width))
+
+    return result
+
+
+def render(folder):
     tmpl = """
     <html>
     <head>
@@ -193,7 +217,7 @@ def render(folder):
         margin: 10px;
     }
     .flex {
-        display: flex;
+        display: inline-flex;
     }
     </style>
     </head>
@@ -203,10 +227,12 @@ def render(folder):
         </nav>
         <div class="content">
             <div class="flex">
+            {% if bench -%}
                 {{ bench }}
+            {% endif %}
                 {{ sys }}
             </div>
-            <div class="flex">
+            <div class="flex" style="flex-direction: column;">
                 {% for r in req -%}
                     {{ r }}
                 {% endfor %}
@@ -214,14 +240,10 @@ def render(folder):
             <div class="flex" style="margin-top: 20px; margin-bottom: 20px;">
                 GoAccess Report :&nbsp;<a href="goaccess.html">here</a>
             </div>
-            <div class="card" style="margin-top: 20px;">
-                <div class="card-header" style="width: {{ width }}px;">
-                    {{ id }} request time(ms)
-                </div>
-                <img
-                    src="wazo-auth-flame.svg"
-                    alt="un triangle aux trois côtés égaux"
-                     />
+            <div class="flex" style="flex-direction: column;">
+                {% for f in flame -%}
+                    {{ f }}
+                {% endfor %}
             </div>
         </div>
     </body>
@@ -230,15 +252,17 @@ def render(folder):
     tm = Template(tmpl)
 
     bench = read_bench(folder, 300)
-    sys = read_sys(folder, 900, 300)
+    sys = read_sys(folder, 900 if bench else 1232, 300)
     req = read_req(folder, 1232, 300)
+    flame = read_flame(folder, 1232)
 
     with open("%s/report.html" % folder, "w+") as f:
         f.write(tm.render(
             date=datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
             bench=bench,
             sys=sys,
-            req=req
+            req=req,
+            flame=flame
         ))
 
 
