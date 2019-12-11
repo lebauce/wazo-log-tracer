@@ -1,6 +1,6 @@
 #!/bin/bash
 
-host=wazo
+host=${WAZO_HOST:-wazo}
 services=()
 
 declare -A top_pids
@@ -11,10 +11,10 @@ start_system_monitor() {
     for arg in "$@"; do
         echo Start monitoring $arg
         
-        pid=$( ssh $host "pgrep -f $arg" )
+        pid=$( ssh $ssh_host "pgrep -f $arg" )
         num=$(( $d * 2 ))
-        
-        ssh $host "top -b -n $num -d 0.5 -p $pid | grep $pid | sed 's/,/./' | awk '{print ((NR+1)/2)\",\"\$6\",\"\$9}'" > $o/$arg-sys.csv &
+
+        ssh $ssh_host "top -b -n $num -d 0.5 -p $pid | grep $pid | sed 's/,/./' | awk '{print ((NR+1)/2)\",\"\$6\",\"\$9}'" > $o/$arg-sys.csv &
         top_pids["$arg"]="$!"
     done
 }
@@ -29,10 +29,10 @@ truncate_logs() {
     for arg in "$@"; do
         echo Truncate log of $arg
         
-        ssh $host "sudo truncate -s 0 /var/log/$arg.log"
+        ssh $ssh_host "sudo truncate -s 0 /var/log/$arg.log"
     done
     
-    ssh $host "sudo truncate -s 0 /var/log/postgresql/postgresql-*-main.log"
+    ssh $ssh_host "sudo truncate -s 0 /var/log/postgresql/postgresql-*-main.log"
 }
 
 retrieve_logs() {
@@ -43,7 +43,7 @@ retrieve_logs() {
     for arg in "$@"; do
         echo Retrieve log of $arg
         
-        scp $host:/var/log/$arg.log .
+        scp $ssh_host:/var/log/$arg.log .
         
         python ../flask.py $arg.log
         cat $arg-req.log | python ../detokenize.py >  $arg-notok.log
@@ -53,7 +53,7 @@ retrieve_logs() {
         --time-format '%H:%M:%S'  --log-format '%d %t,%^ %m %U %h %s %L' *-notok.log
     done
     
-    ssh $host "sudo cat /var/log/postgresql/postgresql-*-main.log" > postgresql.log
+    ssh $ssh_host "sudo cat /var/log/postgresql/postgresql-*-main.log" > postgresql.log
     
     popd
 }
@@ -65,7 +65,7 @@ start_profile() {
     for arg in "$@"; do
         echo Start profiling of $arg
         
-        ssh $host "pgrep -f $arg | xargs -I{} sudo py-spy record --duration $duration  --format flamegraph  --output /tmp/$arg-flame.svg --pid {}" &
+        ssh $ssh_host "pgrep -f $arg | xargs -I{} sudo py-spy record --duration $duration  --format flamegraph  --output /tmp/$arg-flame.svg --pid {}" &
         pids["$arg"]="$!"
     done
 }
@@ -86,7 +86,7 @@ retrieve_profile() {
     for arg in "$@"; do
         echo Retrieve profile of $arg
         
-        scp $host:/tmp/$arg-flame.svg .
+        scp $ssh_host:/tmp/$arg-flame.svg .
     done
     
     popd

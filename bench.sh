@@ -7,6 +7,9 @@ requests=25
 method=GET
 output=
 headers=()
+scenario=
+ssh_user=
+ssh_host=
 
 bench() {
     local c=$1
@@ -37,6 +40,9 @@ bench() {
     done
 
     cmd="$cmd -c $c -n $n $request"
+
+    echo $cmd
+
     while IFS=: read -r key value; do
         case "$key" in
             "Concurrency Level") concurrency=$( echo $value );;
@@ -44,7 +50,7 @@ bench() {
             "Requests per second") persec=$( echo $value | cut -d ' ' -f 1 );;
             "Failed requests") failed=$( echo $value );;
         esac 
-    done <<<$( $cmd )
+    done <<< $( $cmd )
 
     echo "Benchmark done"
 
@@ -59,7 +65,7 @@ run() {
     # heuristic to define the duration based on request time avg
     # has to be adapted in the future
     duration=$(( 900 * $requests / 1000 + 20 ))
-    
+
     truncate_logs "${services[@]}"
     start_system_monitor $duration $o "${services[@]}"
     start_profile $duration "${services[@]}"
@@ -75,7 +81,8 @@ run() {
     retrieve_profile $o "${services[@]}"
 }
 
-while getopts ":u:n:m:d:a:r:s:o:" option; do
+OPTIND=1
+while getopts ":u:n:m:d:a:r:s:o:H:S:U:" option; do
     case "$option" in
         h) host=$OPTARG;;
         u) users=$OPTARG;;
@@ -86,9 +93,18 @@ while getopts ":u:n:m:d:a:r:s:o:" option; do
         r) request=$OPTARG;;
         s) services+=("$OPTARG");;
         o) output=$OPTARG;;
-        H) header+=("$OPTARG");;
+        H) headers+=("$OPTARG");;
+        U) ssh_user=("$OPTARG");;
         :) echo "Option -$OPTARG requires an argument !" >&2;;
         \?) echo "Unsupported option: -$OPTARG !" >&2;;
+    esac
+done
+
+OPTIND=1
+while getopts ":S:" option; do
+    case "$option" in
+        S) . ./scenario/$OPTARG.sh;;
+        :) echo "Option -$OPTARG requires an argument !" >&2;;
     esac
 done
 
@@ -105,8 +121,16 @@ if [ -z "$request" ] || [ -z "$output" ]; then
     echo -e "\t-s service to monitor, can be used multiple times"
     echo -e "\t-o output folder name"
     echo -e "\t-H specify additional headers"
+    echo -e "\t-S specify scenario to load"
+    echo -e "\t-U ssh user to be used"
 
     exit -1
+fi
+
+ssh_host=${WAZO_SSH_HOST:-$host}
+
+if [ ! -z "$ssh_user" ]; then
+    ssh_host="$ssh_user@$ssh_host"
 fi
 
 # run the bench

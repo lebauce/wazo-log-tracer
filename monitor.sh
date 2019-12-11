@@ -48,6 +48,5 @@ if [ -z "$duration" ]; [ -z "$output" ]; then
     exit -1
 fi
 
-# run the bench
 run $duration $output
 

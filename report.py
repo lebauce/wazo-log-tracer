@@ -206,7 +206,6 @@ def read_flame(folder, width):
 
 
 def render(folder):
-
     tmpl = """
     <html>
     <head>
@@ -218,7 +217,7 @@ def render(folder):
         margin: 10px;
     }
     .flex {
-        display: flex;
+        display: inline-flex;
     }
     </style>
     </head>
@@ -233,7 +232,7 @@ def render(folder):
             {% endif %}
                 {{ sys }}
             </div>
-            <div class="flex">
+            <div class="flex" style="flex-direction: column;">
                 {% for r in req -%}
                     {{ r }}
                 {% endfor %}
@@ -241,7 +240,7 @@ def render(folder):
             <div class="flex" style="margin-top: 20px; margin-bottom: 20px;">
                 GoAccess Report :&nbsp;<a href="goaccess.html">here</a>
             </div>
-            <div class="flex">
+            <div class="flex" style="flex-direction: column;">
                 {% for f in flame -%}
                     {{ f }}
                 {% endfor %}
