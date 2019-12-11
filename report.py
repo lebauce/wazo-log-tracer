@@ -40,10 +40,13 @@ def read_bench(folder, width):
     """
     tm = Template(tmpl)
 
-    with open("%s/bench.csv" % folder, mode='r') as f:
-        reader = csv.reader(f, delimiter=',')
-        for row in reader:
-            return tm.render(bench=row, width=width)
+    try:
+        with open("%s/bench.csv" % folder, mode='r') as f:
+            reader = csv.reader(f, delimiter=',')
+            for row in reader:
+                return tm.render(bench=row, width=width)
+    except:
+        pass
 
 
 def read_sys(folder, width, height):
@@ -225,7 +228,9 @@ def render(folder):
         </nav>
         <div class="content">
             <div class="flex">
+            {% if bench -%}
                 {{ bench }}
+            {% endif %}
                 {{ sys }}
             </div>
             <div class="flex">
@@ -248,7 +253,7 @@ def render(folder):
     tm = Template(tmpl)
 
     bench = read_bench(folder, 300)
-    sys = read_sys(folder, 900, 300)
+    sys = read_sys(folder, 900 if bench else 1232, 300)
     req = read_req(folder, 1232, 300)
     flame = read_flame(folder, 1232)
 
