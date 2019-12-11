@@ -23,8 +23,6 @@ def parse_postgresql_logs(input):
     records = []
     for id, l in enumerate(input.readlines()):
         mf = log_re.match(l)
-        # if id == 0:
-        #     import pdb; pdb.set_trace()
         if mf:
             dt, service, duration, method, request = datetime.strptime(mf.group(1), time_fmt), mf.group(2), timedelta(microseconds=float(mf.group(3))*1000), mf.group(4), mf.group(5)
             dt = dt.replace(tzinfo=timezone.utc)

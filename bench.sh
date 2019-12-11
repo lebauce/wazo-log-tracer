@@ -57,10 +57,22 @@ bench() {
     echo "$concurrency,$complete,$failed,$persec" > $o
 }
 
-run() {
+call_flow() {
     local o=$1
 
-    mkdir -p $o
+    truncate_logs "${services[@]}"
+    bench 1 1 $o/bench.csv
+    retrieve_logs $o "${services[@]}"
+    cmd="./wazo-log-tracer.py --input=postgresql:$o/postgresql.log"
+    for service in "${services[@]}"; do
+        cmd+=" --input=flask:$o/$service-req.log"
+    done
+    $cmd > $o/call-flow.uml
+    plantuml $o/call-flow.uml
+}
+
+run_bench() {
+    local o=$1
 
     # heuristic to define the duration based on request time avg
     # has to be adapted in the future
@@ -81,8 +93,20 @@ run() {
     retrieve_profile $o "${services[@]}"
 }
 
+run() {
+    local o=$1
+
+    mkdir -p $o
+
+    # run the scenario once to determine call between services
+    call_flow $o
+
+    # run it multiple times to benchmark it
+    run_bench $o
+}
+
 OPTIND=1
-while getopts ":u:n:m:d:a:r:s:o:H:S:U:" option; do
+while getopts ":h:u:n:m:d:a:r:s:o:H:S:U:" option; do
     case "$option" in
         h) host=$OPTARG;;
         u) users=$OPTARG;;
