@@ -237,6 +237,12 @@ def render(folder):
                     {{ r }}
                 {% endfor %}
             </div>
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-header" style="width: {{ width }}px;">
+                    Call flow
+                </div>
+                <object type="image/svg+xml" style="background-color: white" data="call-flow.svg" align="left"></object>
+            </div>
             <div class="flex" style="margin-top: 20px; margin-bottom: 20px;">
                 GoAccess Report :&nbsp;<a href="goaccess.html">here</a>
             </div>

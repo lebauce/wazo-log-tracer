@@ -20,9 +20,6 @@ def parse_nginx_logs(input):
     records = []
 
     for id, log in enumerate(input.readlines()):
-        #if id == 0:
-        #    import pdb; pdb.set_trace()
-
         m = re.search(MAGIC_REGEX, log)
         (
             method,
