@@ -45,12 +45,14 @@ retrieve_logs() {
         
         scp $ssh_host:/var/log/$arg.log .
         
-        python ../flask.py $arg.log
+        ../flask.py $arg.log
         cat $arg-req.log | python ../detokenize.py >  $arg-notok.log
         
+        cat $arg-notok.log >> full-notok.log
+
         # generate goaccess
         goaccess -o goaccess.html --date-format '%Y-%m-%d' \
-        --time-format '%H:%M:%S'  --log-format '%d %t,%^ %m %U %h %s %L' *-notok.log
+            --time-format '%H:%M:%S'  --log-format '%d %t,%^ %m %U %h %s %L' full-notok.log
     done
     
     ssh $ssh_host "sudo cat /var/log/postgresql/postgresql-*-main.log" > postgresql.log
