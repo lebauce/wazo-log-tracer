@@ -11,7 +11,7 @@ start_system_monitor() {
     for arg in "$@"; do
         echo Start monitoring $arg
         
-        pid=$( ssh $ssh_host "pgrep -f $arg" )
+        pid=$( ssh $ssh_host "pgrep $arg" )
         num=$(( $d * 2 ))
 
         ssh $ssh_host "top -b -n $num -d 0.5 -p $pid | grep $pid | sed 's/,/./' | awk '{print ((NR+1)/2)\",\"\$6\",\"\$9}'" > $o/$arg-sys.csv &

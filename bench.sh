@@ -68,7 +68,7 @@ call_flow() {
         cmd+=" --input=flask:$o/$service-req.log"
     done
     $cmd > $o/call-flow.uml
-    plantuml $o/call-flow.uml
+    plantuml -tsvg $o/call-flow.uml
 }
 
 run_bench() {
@@ -119,16 +119,9 @@ while getopts ":h:u:n:m:d:a:r:s:o:H:S:U:" option; do
         o) output=$OPTARG;;
         H) headers+=("$OPTARG");;
         U) ssh_user=("$OPTARG");;
-        :) echo "Option -$OPTARG requires an argument !" >&2;;
-        \?) echo "Unsupported option: -$OPTARG !" >&2;;
-    esac
-done
-
-OPTIND=1
-while getopts ":S:" option; do
-    case "$option" in
         S) . ./scenario/$OPTARG.sh;;
         :) echo "Option -$OPTARG requires an argument !" >&2;;
+        \?) echo "Unsupported option: -$OPTARG !" >&2;;
     esac
 done
 

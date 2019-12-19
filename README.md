@@ -172,7 +172,7 @@ cat new-token.json
 
 Bench:
 ```
-./bench.sh -u 10 -n 50 -a root:pass -m POST -r https://192.168.1.201/api/auth/0.1/token -s wazo-auth -o run-1
+WAZO_SSH_HOST=wazo WAZO_HOST=192.168.1.201 ./bench.sh -u 10 -n 50 -a root:pass -m POST -r https://192.168.1.201/api/auth/0.1/token -s wazo-auth -o run-1
 ```
 
 ### monitor.sh
@@ -180,7 +180,7 @@ Bench:
 This tool collects the same metrics as the bench one except that it doesn't run any stress test.
 
 ```
-./monitor.sh -d 30 -o run-2 -s wazo-auth
+WAZO_SSH_HOST=wazo WAZO_HOST=192.168.1.201 ./monitor.sh -d 30 -o run-2 -s wazo-auth
 ```
 
 ### report.py
