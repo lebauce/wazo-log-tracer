@@ -1,0 +1,407 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" width="1200" height="598" onload="init(evt)" viewBox="0 0 1200 598" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><!--Flame graph stack visualization. See https://github.com/brendangregg/FlameGraph for latest version, and http://www.brendangregg.com/flamegraphs.html for examples.--><!--NOTES: --><defs><linearGradient id="background" y1="0" y2="1" x1="0" x2="0"><stop stop-color="#eeeeee" offset="5%"/><stop stop-color="#eeeeb0" offset="95%"/></linearGradient></defs><style type="text/css">
+text { font-family:"Verdana"; font-size:12px; fill:rgb(0,0,0); }
+#title { text-anchor:middle; font-size:17px; }
+#search { opacity:0.1; cursor:pointer; }
+#search:hover, #search.show { opacity:1; }
+#subtitle { text-anchor:middle; font-color:rgb(160,160,160); }
+#unzoom { cursor:pointer; }
+#frames > *:hover { stroke:black; stroke-width:0.5; cursor:pointer; }
+.hide { display:none; }
+.parent { opacity:0.5; }
+</style><script type="text/ecmascript"><![CDATA[var nametype = 'Function:';
+var fontsize = 12;
+var fontwidth = 0.59;
+var xpad = 10;
+var inverted = true;
+var searchcolor = 'rgb(230,0,230)';
+var fluiddrawing = true;]]><![CDATA["use strict";
+var details, searchbtn, unzoombtn, matchedtxt, svg, searching, frames;
+function init(evt) {
+    details = document.getElementById("details").firstChild;
+    searchbtn = document.getElementById("search");
+    unzoombtn = document.getElementById("unzoom");
+    matchedtxt = document.getElementById("matched");
+    svg = document.getElementsByTagName("svg")[0];
+    frames = document.getElementById("frames");
+    searching = 0;
+
+    // Use GET parameters to restore a flamegraph's state.
+    var restore_state = function() {
+        var params = get_params();
+        if (params.x && params.y)
+            zoom(find_group(document.querySelector('[x="' + params.x + '"][y="' + params.y + '"]')));
+        if (params.s)
+            search(params.s);
+    };
+
+    if (fluiddrawing) {
+        // Make width dynamic so the SVG fits its parent's width.
+        svg.removeAttribute("width");
+        // Edge requires us to have a viewBox that gets updated with size changes.
+        var isEdge = /Edge\/\d./i.test(navigator.userAgent);
+        if (!isEdge) {
+          svg.removeAttribute("viewBox");
+        }
+        var update_for_width_change = function() {
+            if (isEdge) {
+                svg.attributes.viewBox.value = "0 0 " + svg.width.baseVal.value + " " + svg.height.baseVal.value;
+            }
+
+            // Keep consistent padding on left and right of frames container.
+            frames.attributes.width.value = svg.width.baseVal.value - xpad * 2;
+
+            // Text truncation needs to be adjusted for the current width.
+            var el = frames.children;
+            for(var i = 0; i < el.length; i++) {
+                update_text(el[i]);
+            }
+
+            // Keep search elements at a fixed distance from right edge.
+            var svgWidth = svg.width.baseVal.value;
+            searchbtn.attributes.x.value = svgWidth - xpad - 100;
+            matchedtxt.attributes.x.value = svgWidth - xpad - 100;
+        };
+        window.addEventListener('resize', function() {
+            update_for_width_change();
+        });
+        // This needs to be done asynchronously for Safari to work.
+        setTimeout(function() {
+            unzoom();
+            update_for_width_change();
+            restore_state();
+        }, 0);
+    } else {
+        restore_state();
+    }
+}
+// event listeners
+window.addEventListener("click", function(e) {
+    var target = find_group(e.target);
+    if (target) {
+        if (target.nodeName == "a") {
+            if (e.ctrlKey === false) return;
+            e.preventDefault();
+        }
+        if (target.classList.contains("parent")) unzoom();
+        zoom(target);
+
+        // set parameters for zoom state
+        var el = target.querySelector("rect");
+        if (el && el.attributes && el.attributes.y && el.attributes._orig_x) {
+            var params = get_params()
+            params.x = el.attributes._orig_x.value;
+            params.y = el.attributes.y.value;
+            history.replaceState(null, null, parse_params(params));
+        }
+    }
+    else if (e.target.id == "unzoom") {
+        unzoom();
+
+        // remove zoom state
+        var params = get_params();
+        if (params.x) delete params.x;
+        if (params.y) delete params.y;
+        history.replaceState(null, null, parse_params(params));
+    }
+    else if (e.target.id == "search") search_prompt();
+}, false)
+// mouse-over for info
+// show
+window.addEventListener("mouseover", function(e) {
+    var target = find_group(e.target);
+    if (target) details.nodeValue = nametype + " " + g_to_text(target);
+}, false)
+// clear
+window.addEventListener("mouseout", function(e) {
+    var target = find_group(e.target);
+    if (target) details.nodeValue = ' ';
+}, false)
+// ctrl-F for search
+window.addEventListener("keydown",function (e) {
+    if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
+        e.preventDefault();
+        search_prompt();
+    }
+}, false)
+// functions
+function get_params() {
+    var params = {};
+    var paramsarr = window.location.search.substr(1).split('&');
+    for (var i = 0; i < paramsarr.length; ++i) {
+        var tmp = paramsarr[i].split("=");
+        if (!tmp[0] || !tmp[1]) continue;
+        params[tmp[0]]  = decodeURIComponent(tmp[1]);
+    }
+    return params;
+}
+function parse_params(params) {
+    var uri = "?";
+    for (var key in params) {
+        uri += key + '=' + encodeURIComponent(params[key]) + '&';
+    }
+    if (uri.slice(-1) == "&")
+        uri = uri.substring(0, uri.length - 1);
+    if (uri == '?')
+        uri = window.location.href.split('?')[0];
+    return uri;
+}
+function find_child(node, selector) {
+    var children = node.querySelectorAll(selector);
+    if (children.length) return children[0];
+    return;
+}
+function find_group(node) {
+    var parent = node.parentElement;
+    if (!parent) return;
+    if (parent.id == "frames") return node;
+    return find_group(parent);
+}
+function orig_save(e, attr, val) {
+    if (e.attributes["_orig_" + attr] != undefined) return;
+    if (e.attributes[attr] == undefined) return;
+    if (val == undefined) val = e.attributes[attr].value;
+    e.setAttribute("_orig_" + attr, val);
+}
+function orig_load(e, attr) {
+    if (e.attributes["_orig_"+attr] == undefined) return;
+    e.attributes[attr].value = e.attributes["_orig_" + attr].value;
+    e.removeAttribute("_orig_" + attr);
+}
+function g_to_text(e) {
+    var text = find_child(e, "title").firstChild.nodeValue;
+    return (text)
+}
+function g_to_func(e) {
+    var func = g_to_text(e);
+    // if there's any manipulation we want to do to the function
+    // name before it's searched, do it here before returning.
+    return (func);
+}
+function update_text(e) {
+    var r = find_child(e, "rect");
+    var t = find_child(e, "text");
+    var w = parseFloat(r.attributes.width.value) * frames.attributes.width.value / 100 - 3;
+    var txt = find_child(e, "title").textContent.replace(/\([^(]*\)$/,"");
+    t.attributes.x.value = format_percent((parseFloat(r.attributes.x.value) + (100 * 3 / frames.attributes.width.value)));
+    // Smaller than this size won't fit anything
+    if (w < 2 * fontsize * fontwidth) {
+        t.textContent = "";
+        return;
+    }
+    t.textContent = txt;
+    // Fit in full text width
+    if (/^ *\$/.test(txt) || t.getComputedTextLength() < w)
+        return;
+    for (var x = txt.length - 2; x > 0; x--) {
+        if (t.getSubStringLength(0, x + 2) <= w) {
+            t.textContent = txt.substring(0, x) + "..";
+            return;
+        }
+    }
+    t.textContent = "";
+}
+// zoom
+function zoom_reset(e) {
+    if (e.attributes != undefined) {
+        orig_load(e, "x");
+        orig_load(e, "width");
+    }
+    if (e.childNodes == undefined) return;
+    for(var i = 0, c = e.childNodes; i < c.length; i++) {
+        zoom_reset(c[i]);
+    }
+}
+function zoom_child(e, x, ratio) {
+    if (e.attributes != undefined) {
+        if (e.attributes.x != undefined) {
+            orig_save(e, "x");
+            e.attributes.x.value = format_percent((parseFloat(e.attributes.x.value) - x) * ratio);
+            if (e.tagName == "text") {
+                e.attributes.x.value = format_percent(parseFloat(find_child(e.parentNode, "rect[x]").attributes.x.value) + (100 * 3 / frames.attributes.width.value));
+            }
+        }
+        if (e.attributes.width != undefined) {
+            orig_save(e, "width");
+            e.attributes.width.value = format_percent(parseFloat(e.attributes.width.value) * ratio);
+        }
+    }
+    if (e.childNodes == undefined) return;
+    for(var i = 0, c = e.childNodes; i < c.length; i++) {
+        zoom_child(c[i], x, ratio);
+    }
+}
+function zoom_parent(e) {
+    if (e.attributes) {
+        if (e.attributes.x != undefined) {
+            orig_save(e, "x");
+            e.attributes.x.value = "0.0%";
+        }
+        if (e.attributes.width != undefined) {
+            orig_save(e, "width");
+            e.attributes.width.value = "100.0%";
+        }
+    }
+    if (e.childNodes == undefined) return;
+    for(var i = 0, c = e.childNodes; i < c.length; i++) {
+        zoom_parent(c[i]);
+    }
+}
+function zoom(node) {
+    var attr = find_child(node, "rect").attributes;
+    var width = parseFloat(attr.width.value);
+    var xmin = parseFloat(attr.x.value);
+    var xmax = xmin + width;
+    var ymin = parseFloat(attr.y.value);
+    var ratio = 100 / width;
+    // XXX: Workaround for JavaScript float issues (fix me)
+    var fudge = 0.001;
+    unzoombtn.classList.remove("hide");
+    var el = frames.children;
+    for (var i = 0; i < el.length; i++) {
+        var e = el[i];
+        var a = find_child(e, "rect").attributes;
+        var ex = parseFloat(a.x.value);
+        var ew = parseFloat(a.width.value);
+        // Is it an ancestor
+        if (!inverted) {
+            var upstack = parseFloat(a.y.value) > ymin;
+        } else {
+            var upstack = parseFloat(a.y.value) < ymin;
+        }
+        if (upstack) {
+            // Direct ancestor
+            if (ex <= xmin && (ex+ew+fudge) >= xmax) {
+                e.classList.add("parent");
+                zoom_parent(e);
+                update_text(e);
+            }
+            // not in current path
+            else
+                e.classList.add("hide");
+        }
+        // Children maybe
+        else {
+            // no common path
+            if (ex < xmin || ex + fudge >= xmax) {
+                e.classList.add("hide");
+            }
+            else {
+                zoom_child(e, xmin, ratio);
+                update_text(e);
+            }
+        }
+    }
+}
+function unzoom() {
+    unzoombtn.classList.add("hide");
+    var el = frames.children;
+    for(var i = 0; i < el.length; i++) {
+        el[i].classList.remove("parent");
+        el[i].classList.remove("hide");
+        zoom_reset(el[i]);
+        update_text(el[i]);
+    }
+}
+// search
+function reset_search() {
+    var el = document.querySelectorAll("#frames rect");
+    for (var i = 0; i < el.length; i++) {
+        orig_load(el[i], "fill")
+    }
+    var params = get_params();
+    delete params.s;
+    history.replaceState(null, null, parse_params(params));
+}
+function search_prompt() {
+    if (!searching) {
+        var term = prompt("Enter a search term (regexp " +
+            "allowed, eg: ^ext4_)", "");
+        if (term != null) {
+            search(term)
+        }
+    } else {
+        reset_search();
+        searching = 0;
+        searchbtn.classList.remove("show");
+        searchbtn.firstChild.nodeValue = "Search"
+        matchedtxt.classList.add("hide");
+        matchedtxt.firstChild.nodeValue = ""
+    }
+}
+function search(term) {
+    var re = new RegExp(term);
+    var el = frames.children;
+    var matches = new Object();
+    var maxwidth = 0;
+    for (var i = 0; i < el.length; i++) {
+        var e = el[i];
+        var func = g_to_func(e);
+        var rect = find_child(e, "rect");
+        if (func == null || rect == null)
+            continue;
+        // Save max width. Only works as we have a root frame
+        var w = parseFloat(rect.attributes.width.value);
+        if (w > maxwidth)
+            maxwidth = w;
+        if (func.match(re)) {
+            // highlight
+            var x = parseFloat(rect.attributes.x.value);
+            orig_save(rect, "fill");
+            rect.attributes.fill.value = searchcolor;
+            // remember matches
+            if (matches[x] == undefined) {
+                matches[x] = w;
+            } else {
+                if (w > matches[x]) {
+                    // overwrite with parent
+                    matches[x] = w;
+                }
+            }
+            searching = 1;
+        }
+    }
+    if (!searching)
+        return;
+    var params = get_params();
+    params.s = term;
+    history.replaceState(null, null, parse_params(params));
+
+    searchbtn.classList.add("show");
+    searchbtn.firstChild.nodeValue = "Reset Search";
+    // calculate percent matched, excluding vertical overlap
+    var count = 0;
+    var lastx = -1;
+    var lastw = 0;
+    var keys = Array();
+    for (k in matches) {
+        if (matches.hasOwnProperty(k))
+            keys.push(k);
+    }
+    // sort the matched frames by their x location
+    // ascending, then width descending
+    keys.sort(function(a, b){
+        return a - b;
+    });
+    // Step through frames saving only the biggest bottom-up frames
+    // thanks to the sort order. This relies on the tree property
+    // where children are always smaller than their parents.
+    var fudge = 0.0001;    // JavaScript floating point
+    for (var k in keys) {
+        var x = parseFloat(keys[k]);
+        var w = matches[keys[k]];
+        if (x >= lastx + lastw - fudge) {
+            count += w;
+            lastx = x;
+            lastw = w;
+        }
+    }
+    // display matched percent
+    matchedtxt.classList.remove("hide");
+    var pct = 100 * count / maxwidth;
+    if (pct != 100) pct = pct.toFixed(1);
+    matchedtxt.firstChild.nodeValue = "Matched: " + pct + "%";
+}
+function format_percent(n) {
+    return n.toFixed(4) + "%";
+}
+]]></script><rect x="0" y="0" width="100%" height="598" fill="url(#background)"/><text id="title" x="50.0000%" y="24.00">py-spy</text><text id="details" x="10" y="581.00"> </text><text id="unzoom" class="hide" x="10" y="24.00">Reset Zoom</text><text id="search" x="1090" y="24.00">Search</text><text id="matched" x="1090" y="581.00"> </text><svg id="frames" x="10" width="1180"><g><title>post (wazo_auth/plugins/http/tokens/http.py:155) (2,443 samples, 56.23%)</title><rect x="1.8182%" y="308" width="56.2255%" height="15" fill="rgb(227,0,7)"/><text x="2.0682%" y="318.50">post (wazo_auth/plugins/http/tokens/http.py:155)</text></g><g><title>verify_auth (wazo_auth/services/authentication.py:27) (2,443 samples, 56.23%)</title><rect x="1.8182%" y="324" width="56.2255%" height="15" fill="rgb(217,0,24)"/><text x="2.0682%" y="334.50">verify_auth (wazo_auth/services/authentication.py:27)</text></g><g><title>verify_password (wazo_auth/plugins/backends/wazo_user.py:31) (2,443 samples, 56.23%)</title><rect x="1.8182%" y="340" width="56.2255%" height="15" fill="rgb(221,193,54)"/><text x="2.0682%" y="350.50">verify_password (wazo_auth/plugins/backends/wazo_user.py:31)</text></g><g><title>verify_password (wazo_auth/services/user.py:157) (2,428 samples, 55.88%)</title><rect x="2.1634%" y="356" width="55.8803%" height="15" fill="rgb(248,212,6)"/><text x="2.4134%" y="366.50">verify_password (wazo_auth/services/user.py:157)</text></g><g><title>compute_password_hash (wazo_auth/services/user.py:180) (2,428 samples, 55.88%)</title><rect x="2.1634%" y="372" width="55.8803%" height="15" fill="rgb(208,68,35)"/><text x="2.4134%" y="382.50">compute_password_hash (wazo_auth/services/user.py:180)</text></g><g><title>_execute_context (sqlalchemy/engine/base.py:1236) (263 samples, 6.05%)</title><rect x="60.4373%" y="500" width="6.0529%" height="15" fill="rgb(232,128,0)"/><text x="60.6873%" y="510.50">_execute..</text></g><g><title>do_execute (sqlalchemy/engine/default.py:536) (262 samples, 6.03%)</title><rect x="60.4603%" y="516" width="6.0299%" height="15" fill="rgb(207,160,47)"/><text x="60.7103%" y="526.50">do_execu..</text></g><g><title>_emit_insert_statements (sqlalchemy/orm/persistence.py:1116) (291 samples, 6.70%)</title><rect x="60.0230%" y="436" width="6.6974%" height="15" fill="rgb(228,23,34)"/><text x="60.2730%" y="446.50">_emit_ins..</text></g><g><title>execute (sqlalchemy/engine/base.py:980) (289 samples, 6.65%)</title><rect x="60.0690%" y="452" width="6.6513%" height="15" fill="rgb(218,30,26)"/><text x="60.3190%" y="462.50">execute (..</text></g><g><title>_execute_on_connection (sqlalchemy/sql/elements.py:273) (289 samples, 6.65%)</title><rect x="60.0690%" y="468" width="6.6513%" height="15" fill="rgb(220,122,19)"/><text x="60.3190%" y="478.50">_execute_..</text></g><g><title>_execute_clauseelement (sqlalchemy/engine/base.py:1099) (284 samples, 6.54%)</title><rect x="60.1841%" y="484" width="6.5362%" height="15" fill="rgb(250,228,42)"/><text x="60.4341%" y="494.50">_execute_..</text></g><g><title>execute (sqlalchemy/orm/unitofwork.py:583) (319 samples, 7.34%)</title><rect x="59.4937%" y="404" width="7.3418%" height="15" fill="rgb(240,193,28)"/><text x="59.7437%" y="414.50">execute (s..</text></g><g><title>save_obj (sqlalchemy/orm/persistence.py:245) (300 samples, 6.90%)</title><rect x="59.9310%" y="420" width="6.9045%" height="15" fill="rgb(216,20,37)"/><text x="60.1810%" y="430.50">save_obj ..</text></g><g><title>_flush (sqlalchemy/orm/session.py:2544) (332 samples, 7.64%)</title><rect x="59.2175%" y="372" width="7.6410%" height="15" fill="rgb(206,188,39)"/><text x="59.4675%" y="382.50">_flush (sq..</text></g><g><title>execute (sqlalchemy/orm/unitofwork.py:416) (324 samples, 7.46%)</title><rect x="59.4016%" y="388" width="7.4568%" height="15" fill="rgb(217,207,13)"/><text x="59.6516%" y="398.50">execute (s..</text></g><g><title>create (wazo_auth/database/queries/token.py:35) (340 samples, 7.83%)</title><rect x="59.1024%" y="340" width="7.8251%" height="15" fill="rgb(231,73,38)"/><text x="59.3524%" y="350.50">create (waz..</text></g><g><title>flush (sqlalchemy/orm/session.py:2446) (340 samples, 7.83%)</title><rect x="59.1024%" y="356" width="7.8251%" height="15" fill="rgb(225,20,46)"/><text x="59.3524%" y="366.50">flush (sqla..</text></g><g><title>new_token (wazo_auth/services/token.py:122) (404 samples, 9.30%)</title><rect x="58.0437%" y="324" width="9.2980%" height="15" fill="rgb(210,31,41)"/><text x="58.2937%" y="334.50">new_token (wa..</text></g><g><title>get_token_metadata (wazo_auth/plugins/metadata/default_user.py:28) (78 samples, 1.80%)</title><rect x="70.1266%" y="356" width="1.7952%" height="15" fill="rgb(221,200,47)"/><text x="70.3766%" y="366.50">g..</text></g><g><title>new_token (wazo_auth/services/token.py:66) (253 samples, 5.82%)</title><rect x="67.3878%" y="324" width="5.8228%" height="15" fill="rgb(226,26,5)"/><text x="67.6378%" y="334.50">new_tok..</text></g><g><title>get_metadata (wazo_auth/plugins/backends/wazo_user.py:37) (213 samples, 4.90%)</title><rect x="68.3084%" y="340" width="4.9022%" height="15" fill="rgb(249,33,26)"/><text x="68.5584%" y="350.50">get_me..</text></g><g><title>get_token_metadata (wazo_auth/plugins/metadata/default_user.py:30) (56 samples, 1.29%)</title><rect x="71.9217%" y="356" width="1.2888%" height="15" fill="rgb(235,183,28)"/><text x="72.1717%" y="366.50"></text></g><g><title>new_token (wazo_auth/services/token.py:73) (44 samples, 1.01%)</title><rect x="73.2106%" y="324" width="1.0127%" height="15" fill="rgb(221,5,38)"/><text x="73.4606%" y="334.50"></text></g><g><title>_get_acl_templates (wazo_auth/services/token.py:171) (44 samples, 1.01%)</title><rect x="73.2106%" y="340" width="1.0127%" height="15" fill="rgb(247,18,42)"/><text x="73.4606%" y="350.50"></text></g><g><title>get_acls (wazo_auth/plugins/backends/wazo_user.py:21) (59 samples, 1.36%)</title><rect x="74.2232%" y="340" width="1.3579%" height="15" fill="rgb(241,131,45)"/><text x="74.4732%" y="350.50"></text></g><g><title>get_acls (wazo_auth/plugins/backends/wazo_user.py:22) (85 samples, 1.96%)</title><rect x="75.5811%" y="340" width="1.9563%" height="15" fill="rgb(249,31,29)"/><text x="75.8311%" y="350.50">g..</text></g><g><title>get_acl_templates (wazo_auth/services/user.py:72) (46 samples, 1.06%)</title><rect x="76.4787%" y="356" width="1.0587%" height="15" fill="rgb(225,111,53)"/><text x="76.7287%" y="366.50"></text></g><g><title>list_policies (wazo_auth/services/user.py:93) (46 samples, 1.06%)</title><rect x="76.4787%" y="372" width="1.0587%" height="15" fill="rgb(238,160,17)"/><text x="76.7287%" y="382.50"></text></g><g><title>parse (jinja2/parser.py:901) (50 samples, 1.15%)</title><rect x="78.8032%" y="468" width="1.1507%" height="15" fill="rgb(214,148,48)"/><text x="79.0532%" y="478.50"></text></g><g><title>compile (jinja2/environment.py:579) (98 samples, 2.26%)</title><rect x="77.9287%" y="436" width="2.2555%" height="15" fill="rgb(232,36,49)"/><text x="78.1787%" y="446.50">c..</text></g><g><title>_parse (jinja2/environment.py:497) (98 samples, 2.26%)</title><rect x="77.9287%" y="452" width="2.2555%" height="15" fill="rgb(209,103,24)"/><text x="78.1787%" y="462.50">_..</text></g><g><title>compile (jinja2/environment.py:581) (137 samples, 3.15%)</title><rect x="80.1841%" y="436" width="3.1530%" height="15" fill="rgb(229,88,8)"/><text x="80.4341%" y="446.50">com..</text></g><g><title>_generate (jinja2/environment.py:543) (135 samples, 3.11%)</title><rect x="80.2301%" y="452" width="3.1070%" height="15" fill="rgb(213,181,19)"/><text x="80.4801%" y="462.50">_ge..</text></g><g><title>generate (jinja2/compiler.py:82) (129 samples, 2.97%)</title><rect x="80.3682%" y="468" width="2.9689%" height="15" fill="rgb(254,191,54)"/><text x="80.6182%" y="478.50">gen..</text></g><g><title>visit (jinja2/visitor.py:38) (128 samples, 2.95%)</title><rect x="80.3913%" y="484" width="2.9459%" height="15" fill="rgb(241,83,37)"/><text x="80.6413%" y="494.50">vi..</text></g><g><title>compile (jinja2/environment.py:588) (137 samples, 3.15%)</title><rect x="83.3372%" y="436" width="3.1530%" height="15" fill="rgb(233,36,39)"/><text x="83.5872%" y="446.50">com..</text></g><g><title>_compile (jinja2/environment.py:551) (136 samples, 3.13%)</title><rect x="83.3602%" y="452" width="3.1300%" height="15" fill="rgb(226,3,54)"/><text x="83.6102%" y="462.50">_co..</text></g><g><title>_evaluate_template (wazo_auth/helpers.py:31) (404 samples, 9.30%)</title><rect x="77.5374%" y="388" width="9.2980%" height="15" fill="rgb(245,192,40)"/><text x="77.7874%" y="398.50">_evaluate_tem..</text></g><g><title>__new__ (jinja2/environment.py:945) (394 samples, 9.07%)</title><rect x="77.7675%" y="404" width="9.0679%" height="15" fill="rgb(238,167,29)"/><text x="78.0175%" y="414.50">__new__ (jinj..</text></g><g><title>from_string (jinja2/environment.py:880) (392 samples, 9.02%)</title><rect x="77.8136%" y="420" width="9.0219%" height="15" fill="rgb(232,182,51)"/><text x="78.0636%" y="430.50">from_string (..</text></g><g><title>_evaluate_template (wazo_auth/helpers.py:43) (96 samples, 2.21%)</title><rect x="87.3648%" y="388" width="2.2094%" height="15" fill="rgb(231,60,39)"/><text x="87.6148%" y="398.50">_..</text></g><g><title>get_user_data (wazo_auth/plugins/backends/wazo_user.py:45) (65 samples, 1.50%)</title><rect x="88.0783%" y="404" width="1.4960%" height="15" fill="rgb(208,69,12)"/><text x="88.3283%" y="414.50"></text></g><g><title>get_acl_metadata (wazo_auth/plugins/metadata/default_user.py:69) (60 samples, 1.38%)</title><rect x="88.1933%" y="420" width="1.3809%" height="15" fill="rgb(235,93,37)"/><text x="88.4433%" y="430.50"></text></g><g><title>wrapper (wazo_confd_client/util.py:27) (60 samples, 1.38%)</title><rect x="88.1933%" y="436" width="1.3809%" height="15" fill="rgb(213,116,39)"/><text x="88.4433%" y="446.50"></text></g><g><title>get (wazo_confd_client/crud.py:82) (60 samples, 1.38%)</title><rect x="88.1933%" y="452" width="1.3809%" height="15" fill="rgb(222,207,29)"/><text x="88.4433%" y="462.50"></text></g><g><title>get (wazo_confd_client/session.py:56) (60 samples, 1.38%)</title><rect x="88.1933%" y="468" width="1.3809%" height="15" fill="rgb(206,96,30)"/><text x="88.4433%" y="478.50"></text></g><g><title>get (requests/sessions.py:546) (60 samples, 1.38%)</title><rect x="88.1933%" y="484" width="1.3809%" height="15" fill="rgb(218,138,4)"/><text x="88.4433%" y="494.50"></text></g><g><title>request (requests/sessions.py:533) (55 samples, 1.27%)</title><rect x="88.3084%" y="500" width="1.2658%" height="15" fill="rgb(250,191,14)"/><text x="88.5584%" y="510.50"></text></g><g><title>send (requests/sessions.py:646) (55 samples, 1.27%)</title><rect x="88.3084%" y="516" width="1.2658%" height="15" fill="rgb(239,60,40)"/><text x="88.5584%" y="526.50"></text></g><g><title>send (requests/adapters.py:449) (51 samples, 1.17%)</title><rect x="88.4005%" y="532" width="1.1738%" height="15" fill="rgb(206,27,48)"/><text x="88.6505%" y="542.50"></text></g><g><title>urlopen (urllib3/connectionpool.py:600) (51 samples, 1.17%)</title><rect x="88.4005%" y="548" width="1.1738%" height="15" fill="rgb(225,35,8)"/><text x="88.6505%" y="558.50"></text></g><g><title>post (wazo_auth/plugins/http/tokens/http.py:164) (1,374 samples, 31.62%)</title><rect x="58.0437%" y="308" width="31.6226%" height="15" fill="rgb(250,213,24)"/><text x="58.2937%" y="318.50">post (wazo_auth/plugins/http/tokens/http.py:164)</text></g><g><title>new_token (wazo_auth/services/token.py:76) (671 samples, 15.44%)</title><rect x="74.2232%" y="324" width="15.4430%" height="15" fill="rgb(247,123,22)"/><text x="74.4732%" y="334.50">new_token (wazo_auth/ser..</text></g><g><title>get_acls (wazo_auth/plugins/backends/wazo_user.py:27) (527 samples, 12.13%)</title><rect x="77.5374%" y="340" width="12.1289%" height="15" fill="rgb(231,138,38)"/><text x="77.7874%" y="350.50">get_acls (wazo_aut..</text></g><g><title>render_acl (wazo_auth/interfaces.py:75) (527 samples, 12.13%)</title><rect x="77.5374%" y="356" width="12.1289%" height="15" fill="rgb(231,145,46)"/><text x="77.7874%" y="366.50">render_acl (wazo_a..</text></g><g><title>render (wazo_auth/helpers.py:26) (527 samples, 12.13%)</title><rect x="77.5374%" y="372" width="12.1289%" height="15" fill="rgb(251,118,11)"/><text x="77.7874%" y="382.50">render (wazo_auth/..</text></g><g><title>wrapper (xivo/auth_verifier.py:106) (45 samples, 1.04%)</title><rect x="89.6663%" y="308" width="1.0357%" height="15" fill="rgb(217,147,25)"/><text x="89.9163%" y="318.50"></text></g><g><title>is_valid (wazo_auth/http.py:33) (45 samples, 1.04%)</title><rect x="89.6663%" y="324" width="1.0357%" height="15" fill="rgb(247,81,37)"/><text x="89.9163%" y="334.50"></text></g><g><title>get (wazo_auth/services/token.py:151) (45 samples, 1.04%)</title><rect x="89.6663%" y="340" width="1.0357%" height="15" fill="rgb(209,12,38)"/><text x="89.9163%" y="350.50"></text></g><g><title>_one (wazo_auth/flask_helpers.py:40) (46 samples, 1.06%)</title><rect x="90.7020%" y="356" width="1.0587%" height="15" fill="rgb(227,1,9)"/><text x="90.9520%" y="366.50"></text></g><g><title>_get_token (wazo_auth/flask_helpers.py:80) (46 samples, 1.06%)</title><rect x="90.7020%" y="372" width="1.0587%" height="15" fill="rgb(248,47,43)"/><text x="90.9520%" y="382.50"></text></g><g><title>_get_token_data (wazo_auth/flask_helpers.py:84) (46 samples, 1.06%)</title><rect x="90.7020%" y="388" width="1.0587%" height="15" fill="rgb(221,10,30)"/><text x="90.9520%" y="398.50"></text></g><g><title>get (wazo_auth/services/token.py:151) (46 samples, 1.06%)</title><rect x="90.7020%" y="404" width="1.0587%" height="15" fill="rgb(210,229,1)"/><text x="90.9520%" y="414.50"></text></g><g><title>get (wazo_auth/plugins/http/tenants/http.py:51) (92 samples, 2.12%)</title><rect x="90.7020%" y="324" width="2.1174%" height="15" fill="rgb(222,148,37)"/><text x="90.9520%" y="334.50">g..</text></g><g><title>autodetect (wazo_auth/flask_helpers.py:27) (92 samples, 2.12%)</title><rect x="90.7020%" y="340" width="2.1174%" height="15" fill="rgb(234,67,33)"/><text x="90.9520%" y="350.50">a..</text></g><g><title>_one (wazo_auth/flask_helpers.py:45) (46 samples, 1.06%)</title><rect x="91.7606%" y="356" width="1.0587%" height="15" fill="rgb(247,98,35)"/><text x="92.0106%" y="366.50"></text></g><g><title>_get_user_tenant (wazo_auth/flask_helpers.py:88) (46 samples, 1.06%)</title><rect x="91.7606%" y="372" width="1.0587%" height="15" fill="rgb(247,138,52)"/><text x="92.0106%" y="382.50"></text></g><g><title>get_user (wazo_auth/services/user.py:81) (46 samples, 1.06%)</title><rect x="91.7606%" y="388" width="1.0587%" height="15" fill="rgb(213,79,30)"/><text x="92.0106%" y="398.50"></text></g><g><title>get (wazo_auth/plugins/http/tenants/http.py:57) (71 samples, 1.63%)</title><rect x="92.8193%" y="324" width="1.6341%" height="15" fill="rgb(246,177,23)"/><text x="93.0693%" y="334.50"></text></g><g><title>get (wazo_auth/plugins/http/tenants/http.py:59) (81 samples, 1.86%)</title><rect x="94.4534%" y="324" width="1.8642%" height="15" fill="rgb(230,62,27)"/><text x="94.7034%" y="334.50">g..</text></g><g><title>dispatch_request (flask_restful/__init__.py:573) (4,261 samples, 98.07%)</title><rect x="0.1841%" y="260" width="98.0667%" height="15" fill="rgb(216,154,8)"/><text x="0.4341%" y="270.50">dispatch_request (flask_restful/__init__.py:573)</text></g><g><title>wrapper (xivo/rest_api_helpers.py:28) (4,261 samples, 98.07%)</title><rect x="0.1841%" y="276" width="98.0667%" height="15" fill="rgb(244,35,45)"/><text x="0.4341%" y="286.50">wrapper (xivo/rest_api_helpers.py:28)</text></g><g><title>wrapper (wazo_auth/http.py:76) (4,261 samples, 98.07%)</title><rect x="0.1841%" y="292" width="98.0667%" height="15" fill="rgb(251,115,12)"/><text x="0.4341%" y="302.50">wrapper (wazo_auth/http.py:76)</text></g><g><title>wrapper (xivo/auth_verifier.py:111) (328 samples, 7.55%)</title><rect x="90.7020%" y="308" width="7.5489%" height="15" fill="rgb(240,54,50)"/><text x="90.9520%" y="318.50">wrapper (x..</text></g><g><title>get (wazo_auth/plugins/http/tenants/http.py:62) (84 samples, 1.93%)</title><rect x="96.3176%" y="324" width="1.9333%" height="15" fill="rgb(233,84,52)"/><text x="96.5676%" y="334.50">g..</text></g><g><title>count (wazo_auth/services/tenant.py:32) (44 samples, 1.01%)</title><rect x="97.2382%" y="340" width="1.0127%" height="15" fill="rgb(207,117,47)"/><text x="97.4882%" y="350.50"></text></g><g><title>wrapper (flask_restful/__init__.py:458) (4,262 samples, 98.09%)</title><rect x="0.1841%" y="228" width="98.0898%" height="15" fill="rgb(249,43,39)"/><text x="0.4341%" y="238.50">wrapper (flask_restful/__init__.py:458)</text></g><g><title>view (flask/views.py:88) (4,262 samples, 98.09%)</title><rect x="0.1841%" y="244" width="98.0898%" height="15" fill="rgb(209,38,44)"/><text x="0.4341%" y="254.50">view (flask/views.py:88)</text></g><g><title>full_dispatch_request (flask/app.py:1813) (4,265 samples, 98.16%)</title><rect x="0.1611%" y="196" width="98.1588%" height="15" fill="rgb(236,212,23)"/><text x="0.4111%" y="206.50">full_dispatch_request (flask/app.py:1813)</text></g><g><title>dispatch_request (flask/app.py:1799) (4,265 samples, 98.16%)</title><rect x="0.1611%" y="212" width="98.1588%" height="15" fill="rgb(242,79,21)"/><text x="0.4111%" y="222.50">dispatch_request (flask/app.py:1799)</text></g><g><title>wsgi_app (flask/app.py:2292) (4,280 samples, 98.50%)</title><rect x="0.1151%" y="180" width="98.5040%" height="15" fill="rgb(211,96,35)"/><text x="0.3651%" y="190.50">wsgi_app (flask/app.py:2292)</text></g><g><title>respond (cheroot/wsgi.py:142) (4,284 samples, 98.60%)</title><rect x="0.0921%" y="132" width="98.5961%" height="15" fill="rgb(253,215,40)"/><text x="0.3421%" y="142.50">respond (cheroot/wsgi.py:142)</text></g><g><title>__call__ (cheroot/wsgi.py:409) (4,284 samples, 98.60%)</title><rect x="0.0921%" y="148" width="98.5961%" height="15" fill="rgb(211,81,21)"/><text x="0.3421%" y="158.50">__call__ (cheroot/wsgi.py:409)</text></g><g><title>__call__ (flask/app.py:2309) (4,284 samples, 98.60%)</title><rect x="0.0921%" y="164" width="98.5961%" height="15" fill="rgb(208,190,38)"/><text x="0.3421%" y="174.50">__call__ (flask/app.py:2309)</text></g><g><title>run (cheroot/workers/threadpool.py:112) (4,340 samples, 99.88%)</title><rect x="0.0921%" y="84" width="99.8849%" height="15" fill="rgb(235,213,38)"/><text x="0.3421%" y="94.50">run (cheroot/workers/threadpool.py:112)</text></g><g><title>communicate (cheroot/server.py:1252) (4,340 samples, 99.88%)</title><rect x="0.0921%" y="100" width="99.8849%" height="15" fill="rgb(237,122,38)"/><text x="0.3421%" y="110.50">communicate (cheroot/server.py:1252)</text></g><g><title>respond (cheroot/server.py:1056) (4,340 samples, 99.88%)</title><rect x="0.0921%" y="116" width="99.8849%" height="15" fill="rgb(244,218,35)"/><text x="0.3421%" y="126.50">respond (cheroot/server.py:1056)</text></g><g><title>all (4,345 samples, 100%)</title><rect x="0.0000%" y="36" width="100.0000%" height="15" fill="rgb(240,68,47)"/><text x="0.2500%" y="46.50"></text></g><g><title>_bootstrap (threading.py:885) (4,342 samples, 99.93%)</title><rect x="0.0690%" y="52" width="99.9310%" height="15" fill="rgb(210,16,53)"/><text x="0.3190%" y="62.50">_bootstrap (threading.py:885)</text></g><g><title>_bootstrap_inner (threading.py:917) (4,342 samples, 99.93%)</title><rect x="0.0690%" y="68" width="99.9310%" height="15" fill="rgb(235,124,12)"/><text x="0.3190%" y="78.50">_bootstrap_inner (threading.py:917)</text></g></svg></svg>
