@@ -133,6 +133,27 @@ mkgoaccess detokenized.log
 
 ## Benchmark
 
+### Dependencies
+
+On the bench machine :
+
+* goaccess
+* plantuml
+
+On the engine machine :
+
+* py-spy
+
+### Requierements
+
+In order to have Postgresql request in the call flow graph, its configuration has to
+be adapted :
+
+```
+log_min_duration_statement = 0
+log_line_prefix = '%m [%p] [%a] %q%u@%d '
+```
+
 ### bench.sh
 
 This tool is used to run apache bench against an engine. While running the benchmark it collects metrics from the
@@ -151,7 +172,7 @@ cat new-token.json
 
 Bench:
 ```
-./bench.sh -d ./new-token.json -u 10 -n 50 -a root:pass -m POST -r https://192.168.1.201/api/auth/0.1/token -s wazo-auth -o run-1
+./bench.sh -u 10 -n 50 -a root:pass -m POST -r https://192.168.1.201/api/auth/0.1/token -s wazo-auth -o run-1
 ```
 
 ### monitor.sh
@@ -200,3 +221,10 @@ Here the variable that can be set
 * request: URL of the request
 * services: service to be monitored
 * headers: list of header that will be used for the request
+
+To run it :
+
+```
+WAZO_SSH_HOST=wazo WAZO_HOST=192.168.1.201 ./bench.sh -u 1 -n 50 -a root:pass -S auth-create-token -o run-2
+
+```
