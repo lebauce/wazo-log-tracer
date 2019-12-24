@@ -1,0 +1,450 @@
+2019-12-23 08:51:40.518 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.518 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.049 ms  statement: SELECT 1
+2019-12-23 08:51:40.519 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.154 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.520 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.219 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.567 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.037 ms  statement: COMMIT
+2019-12-23 08:51:40.574 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.574 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.049 ms  statement: SELECT 1
+2019-12-23 08:51:40.574 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.165 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.575 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.235 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.576 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.020 ms  statement: COMMIT
+2019-12-23 08:51:40.586 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.030 ms  statement: BEGIN
+2019-12-23 08:51:40.587 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.054 ms  statement: SELECT 1
+2019-12-23 08:51:40.587 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.197 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.589 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.371 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.593 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.032 ms  statement: COMMIT
+2019-12-23 08:51:40.602 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.602 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.046 ms  statement: SELECT 1
+2019-12-23 08:51:40.603 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.156 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.603 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.224 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.604 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.019 ms  statement: COMMIT
+2019-12-23 08:51:40.614 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.031 ms  statement: BEGIN
+2019-12-23 08:51:40.614 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.051 ms  statement: SELECT 1
+2019-12-23 08:51:40.614 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.162 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.615 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.235 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.617 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.033 ms  statement: COMMIT
+2019-12-23 08:51:40.628 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.029 ms  statement: BEGIN
+2019-12-23 08:51:40.628 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.066 ms  statement: SELECT 1
+2019-12-23 08:51:40.629 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.237 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.629 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.248 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.631 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.021 ms  statement: COMMIT
+2019-12-23 08:51:40.640 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.640 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.049 ms  statement: SELECT 1
+2019-12-23 08:51:40.641 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.176 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.642 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.308 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.643 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.021 ms  statement: COMMIT
+2019-12-23 08:51:40.652 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.027 ms  statement: BEGIN
+2019-12-23 08:51:40.652 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.046 ms  statement: SELECT 1
+2019-12-23 08:51:40.653 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.219 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.654 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.364 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.655 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.024 ms  statement: COMMIT
+2019-12-23 08:51:40.666 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.036 ms  statement: BEGIN
+2019-12-23 08:51:40.666 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.666 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.155 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.667 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.222 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.668 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.020 ms  statement: COMMIT
+2019-12-23 08:51:40.679 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.031 ms  statement: BEGIN
+2019-12-23 08:51:40.680 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.056 ms  statement: SELECT 1
+2019-12-23 08:51:40.680 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.176 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.681 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.224 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.683 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.035 ms  statement: COMMIT
+2019-12-23 08:51:40.694 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.694 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.695 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.222 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.696 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.308 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.697 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.023 ms  statement: COMMIT
+2019-12-23 08:51:40.704 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.031 ms  statement: BEGIN
+2019-12-23 08:51:40.704 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.073 ms  statement: SELECT 1
+2019-12-23 08:51:40.705 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.174 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.705 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.226 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.707 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.020 ms  statement: COMMIT
+2019-12-23 08:51:40.713 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.030 ms  statement: BEGIN
+2019-12-23 08:51:40.713 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.056 ms  statement: SELECT 1
+2019-12-23 08:51:40.714 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.157 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.715 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.269 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.721 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.034 ms  statement: COMMIT
+2019-12-23 08:51:40.728 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.027 ms  statement: BEGIN
+2019-12-23 08:51:40.728 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.729 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.255 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.730 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.300 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.731 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.021 ms  statement: COMMIT
+2019-12-23 08:51:40.743 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.030 ms  statement: BEGIN
+2019-12-23 08:51:40.744 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.054 ms  statement: SELECT 1
+2019-12-23 08:51:40.744 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.191 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.745 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.308 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.747 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.037 ms  statement: COMMIT
+2019-12-23 08:51:40.756 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.756 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.049 ms  statement: SELECT 1
+2019-12-23 08:51:40.757 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.155 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.758 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.260 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.759 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.020 ms  statement: COMMIT
+2019-12-23 08:51:40.770 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.025 ms  statement: BEGIN
+2019-12-23 08:51:40.770 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.771 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.153 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.772 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.265 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.773 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.025 ms  statement: COMMIT
+2019-12-23 08:51:40.782 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.027 ms  statement: BEGIN
+2019-12-23 08:51:40.782 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.091 ms  statement: SELECT 1
+2019-12-23 08:51:40.783 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.189 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.784 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.219 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.785 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.019 ms  statement: COMMIT
+2019-12-23 08:51:40.791 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.025 ms  statement: BEGIN
+2019-12-23 08:51:40.791 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.047 ms  statement: SELECT 1
+2019-12-23 08:51:40.792 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.179 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.793 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.239 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.794 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.020 ms  statement: COMMIT
+2019-12-23 08:51:40.803 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.033 ms  statement: BEGIN
+2019-12-23 08:51:40.804 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.073 ms  statement: SELECT 1
+2019-12-23 08:51:40.804 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.158 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.805 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.228 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.806 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.021 ms  statement: COMMIT
+2019-12-23 08:51:40.813 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.030 ms  statement: BEGIN
+2019-12-23 08:51:40.813 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.111 ms  statement: SELECT 1
+2019-12-23 08:51:40.814 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.165 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.817 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.273 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.818 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.022 ms  statement: COMMIT
+2019-12-23 08:51:40.829 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.051 ms  statement: BEGIN
+2019-12-23 08:51:40.829 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.055 ms  statement: SELECT 1
+2019-12-23 08:51:40.830 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.217 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.831 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.257 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.832 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: COMMIT
+2019-12-23 08:51:40.839 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.027 ms  statement: BEGIN
+2019-12-23 08:51:40.839 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.840 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.153 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.841 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.271 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.843 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.029 ms  statement: COMMIT
+2019-12-23 08:51:40.852 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.852 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.853 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.155 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.854 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.361 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.855 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.028 ms  statement: COMMIT
+2019-12-23 08:51:40.864 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.864 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.865 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.221 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.866 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.222 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.867 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.028 ms  statement: COMMIT
+2019-12-23 08:51:40.876 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.051 ms  statement: BEGIN
+2019-12-23 08:51:40.876 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.876 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.154 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.877 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.226 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.878 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.022 ms  statement: COMMIT
+2019-12-23 08:51:40.886 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.044 ms  statement: BEGIN
+2019-12-23 08:51:40.886 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.071 ms  statement: SELECT 1
+2019-12-23 08:51:40.887 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.208 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.888 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.291 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.890 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.069 ms  statement: COMMIT
+2019-12-23 08:51:40.898 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.898 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.047 ms  statement: SELECT 1
+2019-12-23 08:51:40.899 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.194 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.899 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.240 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.906 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.032 ms  statement: COMMIT
+2019-12-23 08:51:40.914 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.030 ms  statement: BEGIN
+2019-12-23 08:51:40.914 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.047 ms  statement: SELECT 1
+2019-12-23 08:51:40.915 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.192 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.915 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.220 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.917 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.040 ms  statement: COMMIT
+2019-12-23 08:51:40.927 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.031 ms  statement: BEGIN
+2019-12-23 08:51:40.927 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.053 ms  statement: SELECT 1
+2019-12-23 08:51:40.928 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.191 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.929 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.408 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.931 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.027 ms  statement: COMMIT
+2019-12-23 08:51:40.948 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.028 ms  statement: BEGIN
+2019-12-23 08:51:40.948 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.060 ms  statement: SELECT 1
+2019-12-23 08:51:40.948 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.155 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.949 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.232 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.950 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.021 ms  statement: COMMIT
+2019-12-23 08:51:40.957 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:40.957 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.957 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.152 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.958 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.223 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.959 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.020 ms  statement: COMMIT
+2019-12-23 08:51:40.966 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.040 ms  statement: BEGIN
+2019-12-23 08:51:40.966 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:40.967 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.151 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.967 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.235 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.969 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.021 ms  statement: COMMIT
+2019-12-23 08:51:40.978 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.031 ms  statement: BEGIN
+2019-12-23 08:51:40.978 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.057 ms  statement: SELECT 1
+2019-12-23 08:51:40.979 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.312 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.983 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.403 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.987 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.034 ms  statement: COMMIT
+2019-12-23 08:51:40.996 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.031 ms  statement: BEGIN
+2019-12-23 08:51:40.997 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.126 ms  statement: SELECT 1
+2019-12-23 08:51:40.997 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.153 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:40.998 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.293 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:40.999 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.021 ms  statement: COMMIT
+2019-12-23 08:51:41.010 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.010 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:41.011 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.154 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.012 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.276 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.014 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.028 ms  statement: COMMIT
+2019-12-23 08:51:41.024 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.024 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:41.025 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.201 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.026 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.219 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.027 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.021 ms  statement: COMMIT
+2019-12-23 08:51:41.039 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.031 ms  statement: BEGIN
+2019-12-23 08:51:41.039 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.054 ms  statement: SELECT 1
+2019-12-23 08:51:41.040 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.303 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.041 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.333 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.046 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.045 ms  statement: COMMIT
+2019-12-23 08:51:41.054 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.055 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.047 ms  statement: SELECT 1
+2019-12-23 08:51:41.055 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.166 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.056 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.234 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.057 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.020 ms  statement: COMMIT
+2019-12-23 08:51:41.065 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.065 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.105 ms  statement: SELECT 1
+2019-12-23 08:51:41.065 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.156 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.070 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.479 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.075 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.042 ms  statement: COMMIT
+2019-12-23 08:51:41.085 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.085 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.048 ms  statement: SELECT 1
+2019-12-23 08:51:41.086 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.153 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.087 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.271 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.091 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: COMMIT
+2019-12-23 08:51:41.100 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.100 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.049 ms  statement: SELECT 1
+2019-12-23 08:51:41.101 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.155 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.102 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.224 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.103 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.028 ms  statement: COMMIT
+2019-12-23 08:51:41.111 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.111 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.049 ms  statement: SELECT 1
+2019-12-23 08:51:41.112 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.177 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.113 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.292 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.114 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.020 ms  statement: COMMIT
+2019-12-23 08:51:41.126 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.032 ms  statement: BEGIN
+2019-12-23 08:51:41.126 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.058 ms  statement: SELECT 1
+2019-12-23 08:51:41.127 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.195 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.128 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.314 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.132 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.033 ms  statement: COMMIT
+2019-12-23 08:51:41.141 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.141 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.047 ms  statement: SELECT 1
+2019-12-23 08:51:41.142 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.195 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.143 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.273 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.144 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.024 ms  statement: COMMIT
+2019-12-23 08:51:41.152 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.152 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.050 ms  statement: SELECT 1
+2019-12-23 08:51:41.153 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.175 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.154 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.260 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.155 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.022 ms  statement: COMMIT
+2019-12-23 08:51:41.163 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.032 ms  statement: BEGIN
+2019-12-23 08:51:41.164 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.056 ms  statement: SELECT 1
+2019-12-23 08:51:41.164 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.152 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.165 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.221 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.166 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.029 ms  statement: COMMIT
+2019-12-23 08:51:41.173 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.173 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.050 ms  statement: SELECT 1
+2019-12-23 08:51:41.173 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.196 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.174 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.224 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.175 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.021 ms  statement: COMMIT
+2019-12-23 08:51:41.186 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.041 ms  statement: BEGIN
+2019-12-23 08:51:41.186 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.072 ms  statement: SELECT 1
+2019-12-23 08:51:41.187 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.262 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.188 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.329 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.189 UTC [844] [wazo-auth] asterisk@asterisk LOG:  duration: 0.030 ms  statement: COMMIT
+2019-12-23 08:51:41.199 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: BEGIN
+2019-12-23 08:51:41.199 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.073 ms  statement: SELECT 1
+2019-12-23 08:51:41.200 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.234 ms  statement: SELECT auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, auth_token.session_uuid AS auth_token_session_uuid, auth_token.auth_id AS auth_token_auth_id, auth_token.pbx_user_uuid AS auth_token_pbx_user_uuid, auth_token.xivo_uuid AS auth_token_xivo_uuid, auth_token.issued_t AS auth_token_issued_t, auth_token.expire_t AS auth_token_expire_t, auth_token.user_agent AS auth_token_user_agent, auth_token.remote_addr AS auth_token_remote_addr 
+	FROM auth_token 
+	WHERE auth_token.uuid = '80d6c68a-9ab4-46fd-ba59-b8f67c791476'
+2019-12-23 08:51:41.202 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.283 ms  statement: SELECT auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uuid AS auth_acl_token_uuid 
+	FROM auth_acl 
+	WHERE '80d6c68a-9ab4-46fd-ba59-b8f67c791476' = auth_acl.token_uuid
+2019-12-23 08:51:41.205 UTC [841] [wazo-auth] asterisk@asterisk LOG:  duration: 0.026 ms  statement: COMMIT
