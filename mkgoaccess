@@ -1,3 +1,0 @@
-#!/bin/bash
-
-goaccess --real-time-html --date-format '%Y-%m-%d' --time-format '%H:%M:%S'  --log-format '%d %t,%^ %m %U %h %s %L' $1
