@@ -1,0 +1,6 @@
+@startuml
+"ApacheBench/2.3" -[#red]> "wazo-calld": GET 200 https://192.168.1.201/api/calld/1.0/calls ( <b>3</b> Start: 0.000000 ms)
+"wazo-calld" -[#red]> "wazo-auth": HEAD 200 http://localhost:9497/0.1/token/?scope=calld.calls.read ( <b>3</b> Start: 7.000000 ms)
+"wazo-calld" <-[#blue]- "wazo-auth": HEAD 200 http://localhost:9497/0.1/token/?scope=calld.calls.read ( <b>3</b> Duration: 1.000000 ms)
+"ApacheBench/2.3" <-[#blue]- "wazo-calld": GET 200 https://192.168.1.201/api/calld/1.0/calls ( <b>3</b> Duration: 11.000000 ms)
+@enduml
