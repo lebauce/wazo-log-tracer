@@ -1,0 +1,14 @@
+@startuml
+"ApacheBench/2.3" -[#red]> "wazo-auth": HEAD 200 https://192.168.1.201/0.1/token/80d6c68a-9ab4-46fd-ba59-b8f67c791476 ( <b>7</b> Start: 0.000000 ms)
+"wazo-auth" -[#red]> "postgresql": SELECT 200  1 ( <b>6</b> Start: 0.947000 ms)
+"wazo-auth" -[#red]> "postgresql": BEGIN 200  ( <b>7</b> Start: 0.972000 ms)
+"wazo-auth" <-[#blue]- "postgresql": BEGIN 200  ( <b>7</b> Duration: 0.028000 ms)
+"wazo-auth" <-[#blue]- "postgresql": SELECT 200  1 ( <b>6</b> Duration: 0.053000 ms)
+"wazo-auth" -[#red]> "postgresql": SELECT 200  auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, ( <b>5</b> Start: 1.836000 ms)
+"wazo-auth" <-[#blue]- "postgresql": SELECT 200  auth_token.metadata AS auth_token_metadata, auth_token.uuid AS auth_token_uuid, ( <b>5</b> Duration: 0.164000 ms)
+"wazo-auth" -[#red]> "postgresql": SELECT 200  auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uu ( <b>2</b> Start: 2.732000 ms)
+"wazo-auth" <-[#blue]- "postgresql": SELECT 200  auth_acl.id AS auth_acl_id, auth_acl.value AS auth_acl_value, auth_acl.token_uu ( <b>2</b> Duration: 0.268000 ms)
+"wazo-auth" -[#red]> "postgresql": COMMIT 200  ( <b>-1</b> Start: 5.969000 ms)
+"wazo-auth" <-[#blue]- "postgresql": COMMIT 200  ( <b>-1</b> Duration: 0.031000 ms)
+"ApacheBench/2.3" <-[#blue]- "wazo-auth": HEAD 200 https://192.168.1.201/0.1/token/80d6c68a-9ab4-46fd-ba59-b8f67c791476 ( <b>7</b> Duration: 7.000000 ms)
+@enduml
