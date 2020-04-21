@@ -67,6 +67,7 @@ call_flow() {
     for service in "${services[@]}"; do
         cmd+=" --input=flask:$o/$service-req.log"
     done
+
     $cmd > $o/call-flow.uml
     plantuml -tsvg $o/call-flow.uml
 }

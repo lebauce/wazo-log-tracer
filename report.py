@@ -243,7 +243,7 @@ def render(folder):
                 </div>
                 <object type="image/svg+xml" style="background-color: white" data="call-flow.svg" align="left"></object>
             </div>
-            <div class="flex" style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="flex" style="width: 1292px; margin-top: 20px; margin-bottom: 20px;">
                 GoAccess Report :&nbsp;<a href="goaccess.html">here</a>
             </div>
             <div class="flex" style="flex-direction: column;">
