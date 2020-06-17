@@ -26,6 +26,13 @@ Example:
   ```
   add_header          X-Powered-By        <service name> always;
   ```
+  Script:
+  ```
+  cd /etc/nginx/locations/https-enabled 
+  for file in wazo-*; do 
+    sed -i "s,},    add_header X-Powered-By $file always;\n}," $file
+  done
+  ```
 * Reload nginx: `systemctl reload nginx`
 * Redirect all HTTP calls to nginx:
   * Create `/etc/wazo.yml`:
@@ -33,36 +40,44 @@ Example:
     amid:
       port: 443
       prefix: /api/amid
-      verify_certificate: false
+      https: true                                         
+      verify_certificate: /usr/share/xivo-certs/server.crt
     auth:
       port: 443
       timeout: 30
       prefix: /api/auth
-      verify_certificate: false
+      https: true                                         
+      verify_certificate: /usr/share/xivo-certs/server.crt
     call-logd:
       port: 443
       prefix: /api/call-logd
-      verify_certificate: false
+      https: true                                         
+      verify_certificate: /usr/share/xivo-certs/server.crt
     confd:
       port: 443
       prefix: /api/confd
-      verify_certificate: false
+      https: true                                         
+      verify_certificate: /usr/share/xivo-certs/server.crt
     dird:
       port: 443
       prefix: /api/dird
-      verify_certificate: false
+      https: true                                         
+      verify_certificate: /usr/share/xivo-certs/server.crt
     plugind:
       port: 443
       prefix: /api/plugind
-      verify_certificate: false
+      https: true                                         
+      verify_certificate: /usr/share/xivo-certs/server.crt
     provd:
       port: 443
       prefix: /api/provd
-      verify_certificate: false
+      https: true                                         
+      verify_certificate: /usr/share/xivo-certs/server.crt
     webhookd:
       port: 443
       prefix: /api/webhookd
-      verify_certificate: false
+      https: true                                         
+      verify_certificate: /usr/share/xivo-certs/server.crt
     ```
 
   * Apply it to all Wazo services:
@@ -83,12 +98,12 @@ Example:
 
 * Capture nginx logs in `/var/log/nginx/wazo.access.log`
 * You can use `logrotate -f /etc/logrotate.d/nginx` to purge the log file
-* Use it: `./wazo-log-tracer.py wazo.access.log wazo.puml`
+* Use it: `./wazo-log-tracer.py --input wazo.access.log --output wazo.puml`
 * Generate PNG file `wazo.png`: `plantuml wazo.puml`
 
 ### Advanced usage
 
-* Use max-connections=1 in Firefox to see sequential calls
+* Use `max-connections=1` in Firefox to see sequential calls
 
 * Use a spreadsheet to analyse which requests are the more costly: the ones initiated from the browser which are the longest. Then analyse them in the call graph.
 
