@@ -28,7 +28,7 @@ Example:
   ```
   Script:
   ```
-  cd /etc/nginx/locations/https-enabled 
+  cd /etc/nginx/locations/https-available 
   for file in wazo-*; do 
     sed -i "s,},    add_header X-Powered-By $file always;\n}," $file
   done
